@@ -135,8 +135,9 @@ document.getElementById('decisionForm').addEventListener('submit', async functio
 
     // Hide the result box when the button is pressed
     const resultBox = document.getElementById('result');
-    resultBox.style.display = 'none';
-    resultBox.textContent = ''; // Clear the previous result
+    // resultBox.style.display = 'none';
+    resultBox.textContent = 'Working on it...'; // Clear the previous result
+    resultBox.style.display = 'block'; // Make the result box visible
 
     // Get the API key entered by the user
     const apiKey = document.getElementById('apiKey').value;
