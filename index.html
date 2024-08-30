@@ -191,9 +191,9 @@ document.getElementById('decisionForm').addEventListener('submit', async functio
         resultBox.textContent = aiRecommendation;
         resultBox.style.display = 'block'; // Make the result box visible
 
-        console.log(`Prompt tokens: ${data.usage.prompt_tokens}`);
-        console.log(`Completion tokens: ${data.usage.completion_tokens}`);
-        console.log(`Total tokens: ${data.usage.total_tokens}`);
+        // console.log(`Prompt tokens: ${data.usage.prompt_tokens}`);
+        // console.log(`Completion tokens: ${data.usage.completion_tokens}`);
+        // console.log(`Total tokens: ${data.usage.total_tokens}`);
 
     } catch (error) {
         console.error('Error calling the OpenAI API:', error);
