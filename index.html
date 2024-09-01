@@ -97,6 +97,7 @@
             }
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
 
@@ -120,6 +121,7 @@
 
         <label for="apiKey">For testing, enter your OpenAI API Key</label>
         <input type="password" id="apiKey" name="apiKey" placeholder="OpenAI API key" required>
+        <!-- <input type="password" id="apiKey" name="apiKey" placeholder="OpenAI API key"> -->
 
     </form>
 
@@ -133,14 +135,23 @@
 document.getElementById('decisionForm').addEventListener('submit', async function(event) {
     event.preventDefault(); // Prevent the default form submission
 
-    // Hide the result box when the button is pressed
+    // Hide the result box when the button is pressed, or display a waiting message
     const resultBox = document.getElementById('result');
     // resultBox.style.display = 'none';
-    resultBox.textContent = "Be patient for a few seconds while I think about it..."; // Clear the previous result
+    resultBox.textContent = "Please be patient for a few seconds while I think about it..."; // Clear the previous result or display the waiting message
     resultBox.style.display = 'block'; // Make the result box visible
 
     // Get the API key entered by the user
     const apiKey = document.getElementById('apiKey').value;
+
+    // const apiKey = prompt("Please enter your OpenAI API key:");
+
+    // if (!apiKey) {
+    //     apiKey = prompt("Please enter your OpenAI API key:");
+    //     resultBox.textContent = "API key is required to submit the prompt.";
+    // return;
+    // }
+
 
     // Get the input values
     const decisionDescription = document.getElementById('decisionDescription').value;
@@ -159,7 +170,8 @@ document.getElementById('decisionForm').addEventListener('submit', async functio
 
     // Create the messages array
     const messages = [
-        { "role": "system", "content": "You are a helpful assistant." },
+        // { "role": "system", "content": "You are a helpful assistant and an expert at analyzing decisions, evaluating options, and making recommendations." },
+        { "role": "system", "content": "You are a helpful AI assistant and an expert at analyzing decisions, evaluating options, and making recommendations. Provide detailed, clear, and helpful recommendations with rationale and explanations." },
         { "role": "user", "content": userMessage }
     ];
 
@@ -189,7 +201,11 @@ document.getElementById('decisionForm').addEventListener('submit', async functio
 
         // Display the result in the result box
         // const resultBox = document.getElementById('result');
-        resultBox.textContent = aiRecommendation;
+        // resultBox.textContent = aiRecommendation;
+        // Convert Markdown to HTML using the marked library
+        const htmlContent = marked.parse(aiRecommendation);
+        // resultBox.textContent = htmlContent;
+        resultBox.innerHTML = htmlContent;
         resultBox.style.display = 'block'; // Make the result box visible
 
         // console.log(`Prompt tokens: ${data.usage.prompt_tokens}`);
